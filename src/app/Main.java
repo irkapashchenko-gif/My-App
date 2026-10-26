@@ -1,5 +1,7 @@
 package app;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -8,40 +10,44 @@ public class Main {
         Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
 
         System.out.print("Введіть суму доходу: ");
-        if (!scanner.hasNextDouble()) {
+        if (!scanner.hasNextBigDecimal()) {
             System.out.println("Помилка: введено некоректне число.");
             return;
         }
 
-        double income = scanner.nextDouble();
+        BigDecimal income = scanner.nextBigDecimal();
 
-        if (income < 0) {
+        if (income.compareTo(BigDecimal.ZERO) < 0) {
             System.out.println("Помилка: дохід не може бути меншим за 0.");
             return;
         }
 
-        double tax = calculateTax(income);
+        BigDecimal tax = calculateTax(income);
 
-        System.out.printf(Locale.US, "Сума податку становить: %.2f%n", tax);
+        BigDecimal finalTax = tax.setScale(2, RoundingMode.HALF_UP);
+
+        System.out.println("Сума податку становить: " + finalTax);
 
         scanner.close();
     }
 
-    public static double calculateTax(double income) {
-        double tax = 0.0;
-        double limit1 = 10000.0;
-        double limit2 = 25000.0;
 
-        double rate1 = 0.025;
-        double rate2 = 0.043;
-        double rate3 = 0.067;
+    public static BigDecimal calculateTax(BigDecimal income) {
+        BigDecimal limit1 = new BigDecimal("10000.00");
+        BigDecimal limit2 = new BigDecimal("25000.00");
 
-        if (income <= limit1) {
-            tax = income * rate1;
-        } else if (income <= limit2) {
-            tax = (limit1 * rate1) + ((income - limit1) * rate2);
+        BigDecimal rate1 = new BigDecimal("0.025");
+        BigDecimal rate2 = new BigDecimal("0.043");
+        BigDecimal rate3 = new BigDecimal("0.067");
+
+        BigDecimal tax = BigDecimal.ZERO;
+
+        if (income.compareTo(limit1) <= 0) {
+            tax = income.multiply(rate1);
+        } else if (income.compareTo(limit2) <= 0) {
+            tax = income.multiply(rate2);
         } else {
-            tax = (limit1 * rate1) + ((limit2 - limit1) * rate2) + ((income - limit2) * rate3);
+            tax = income.multiply(rate3);
         }
 
         return tax;
