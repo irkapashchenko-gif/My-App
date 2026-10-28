@@ -13,14 +13,7 @@ public class Main {
             }
         }
 
-        System.out.println("Матриця 4x4:");
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[i].length; j++) {
-                System.out.printf("%2d ", matrix[i][j]);
-            }
-            System.out.println();
-        }
-        System.out.println();
+        printMatrix(matrix);
 
         int sumEvenRows = 0;
         int sumOddRows = 0;
@@ -57,10 +50,21 @@ public class Main {
         }
     }
 
+    public static void printMatrix(int[][] matrix) {
+        System.out.println("Матриця " + matrix.length + "x" + matrix[0].length + ":");
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.printf("%2d ", matrix[i][j]);
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
     public static boolean checkMagicSquare(int[][] matrix) {
         int n = matrix.length;
-
         int targetSum = 0;
+
         for (int j = 0; j < n; j++) {
             targetSum += matrix[0][j];
         }
