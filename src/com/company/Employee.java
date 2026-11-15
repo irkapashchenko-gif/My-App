@@ -7,7 +7,6 @@ public class Employee {
     private String phone;
     private int age;
 
-    // Конструктор для ініціалізації всіх полів
     public Employee(String fullName, String position, String email, String phone, int age) {
         this.fullName = fullName;
         this.position = position;
@@ -16,7 +15,6 @@ public class Employee {
         this.age = age;
     }
 
-    // Геттери та сеттери (інкапсуляція)
     public String getFullName() {
         return fullName;
     }
