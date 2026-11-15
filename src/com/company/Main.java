@@ -2,7 +2,6 @@ package com.company;
 
 public class Main {
     public static void main(String[] args) {
-        // Створення об'єкта співробітника
         Employee employee = new Employee(
                 "Іваненко Іван Іванович",
                 "Java Developer",
@@ -14,7 +13,6 @@ public class Main {
         System.out.println("Співробітник: " + employee.getFullName() + ", посада: " + employee.getPosition());
         System.out.println("---");
 
-        // Створення та запуск автомобіля
         Car car = new Car();
         car.start();
     }
